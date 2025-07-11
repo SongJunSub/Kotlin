@@ -29,6 +29,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
     implementation("mysql:mysql-connector-java:8.0.33")
+    implementation("io.ktor:ktor-server-auth-jvm")
+    implementation("io.ktor:ktor-server-auth-jwt-jvm")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
