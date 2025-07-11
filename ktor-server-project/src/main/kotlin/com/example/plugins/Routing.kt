@@ -2,12 +2,13 @@ package com.example.plugins
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.example.service.UserService
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
-import org.jetbrains.exposed.sql.*
+import org.koin.ktor.ext.inject
 import java.util.*
 
 fun Application.configureRouting() {
@@ -17,6 +18,8 @@ fun Application.configureRouting() {
     val audience = environment.config.property("jwt.audience").getString()
 
     routing {
+        val userService by inject<UserService>()
+
         get("/") {
             call.respondText("Hello World!")
         }
@@ -37,28 +40,13 @@ fun Application.configureRouting() {
         authenticate("auth-jwt") {
             route("/users") {
                 get {
-                    val users = DatabaseFactory.dbQuery {
-                        Users.selectAll().map { toUser(it) }
-                    }
-                    call.respond(users)
+                    call.respond(userService.findAll())
                 }
                 post {
                     val user = call.receive<User>()
-                    val id = DatabaseFactory.dbQuery {
-                        Users.insert {
-                            it[name] = user.name
-                            it[age] = user.age
-                        }[Users.id]
-                    }
-                    call.respond(User(id, user.name, user.age))
+                    call.respond(userService.create(user))
                 }
             }
         }
     }
 }
-
-private fun toUser(row: ResultRow): User = User(
-    id = row[Users.id],
-    name = row[Users.name],
-    age = row[Users.age]
-)

@@ -12,6 +12,7 @@ fun main() {
 
 fun Application.module() {
     DatabaseFactory.init()
+    configureKoin()
     configureSerialization()
     configureSecurity()
     configureRouting()

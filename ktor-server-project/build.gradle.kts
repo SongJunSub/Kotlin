@@ -31,6 +31,8 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.33")
     implementation("io.ktor:ktor-server-auth-jvm")
     implementation("io.ktor:ktor-server-auth-jwt-jvm")
+    implementation("io.insert-koin:koin-ktor:3.5.0")
+    implementation("io.insert-koin:koin-logger-slf4j:3.5.0")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
