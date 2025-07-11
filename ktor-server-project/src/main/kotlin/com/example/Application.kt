@@ -11,5 +11,7 @@ fun main() {
 }
 
 fun Application.module() {
+    DatabaseFactory.init()
+    configureSerialization()
     configureRouting()
 }
