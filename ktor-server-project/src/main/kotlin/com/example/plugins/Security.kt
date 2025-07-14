@@ -8,10 +8,10 @@ import io.ktor.server.auth.jwt.*
 
 fun Application.configureSecurity() {
 
-    val secret = environment.config.property("jwt.secret").getString()
-    val issuer = environment.config.property("jwt.issuer").getString()
-    val audience = environment.config.property("jwt.audience").getString()
-    val myRealm = environment.config.property("jwt.realm").getString()
+    val secret = System.getenv("JWT_SECRET") ?: "secret"
+    val issuer = System.getenv("JWT_ISSUER") ?: "http://0.0.0.0:8080"
+    val audience = System.getenv("JWT_AUDIENCE") ?: "users"
+    val myRealm = System.getenv("JWT_REALM") ?: "ktor sample app"
 
     install(Authentication) {
         jwt("auth-jwt") {

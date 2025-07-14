@@ -11,9 +11,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object DatabaseFactory {
     fun init() {
         val driverClassName = "com.mysql.cj.jdbc.Driver"
-        val jdbcURL = "jdbc:mysql://localhost:3306/your_database_name"
-        val user = "your_username"
-        val password = "your_password"
+        val jdbcURL = System.getenv("DB_URL") ?: "jdbc:mysql://localhost:3306/your_database_name"
+        val user = System.getenv("DB_USER") ?: "your_username"
+        val password = System.getenv("DB_PASSWORD") ?: "your_password"
         val database = Database.connect(createHikariDataSource(jdbcURL, driverClassName, user, password))
         transaction(database) {
             SchemaUtils.create(Users)

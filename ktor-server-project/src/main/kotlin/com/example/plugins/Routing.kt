@@ -14,9 +14,9 @@ import java.util.*
 
 fun Application.configureRouting() {
 
-    val secret = environment.config.property("jwt.secret").getString()
-    val issuer = environment.config.property("jwt.issuer").getString()
-    val audience = environment.config.property("jwt.audience").getString()
+    val secret = System.getenv("JWT_SECRET") ?: "secret"
+    val issuer = System.getenv("JWT_ISSUER") ?: "http://0.0.0.0:8080"
+    val audience = System.getenv("JWT_AUDIENCE") ?: "users"
 
     routing {
         val userService by inject<UserService>()
