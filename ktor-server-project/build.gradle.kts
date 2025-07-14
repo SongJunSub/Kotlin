@@ -36,5 +36,7 @@ dependencies {
     implementation("io.ktor:ktor-server-request-validation-jvm")
     implementation("io.ktor:ktor-server-swagger-jvm")
     testImplementation("io.ktor:ktor-server-tests-jvm")
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("org.testcontainers:mysql:1.19.3")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
