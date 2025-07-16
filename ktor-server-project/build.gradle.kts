@@ -36,6 +36,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
     implementation("mysql:mysql-connector-java:8.0.33")
+    implementation("com.h2database:h2:2.2.224")
+    implementation("org.mindrot:jbcrypt:0.4")
     implementation("io.ktor:ktor-server-auth-jvm")
     implementation("io.ktor:ktor-server-auth-jwt-jvm")
     implementation("io.insert-koin:koin-ktor:3.5.0")
