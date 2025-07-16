@@ -11,7 +11,9 @@
   - `runBlocking`: 새로운 코루틴을 시작하고, 해당 코루틴이 완료될 때까지 현재 스레드를 차단합니다. 주로 `main` 함수나 테스트 코드에서 사용됩니다.
 - **`delay`**: 코루틴을 지정된 시간 동안 일시 중단하는 `suspend` 함수입니다.
 - **`Job`**: `launch`에 의해 반환되는 객체로, 코루틴의 생명주기를 관리하고 취소할 수 있습니다.
+- **`Channel`**: 코루틴 간에 데이터를 주고받을 수 있는 통신 채널입니다. 생산자-소비자 패턴에 유용합니다.
+- **`StateFlow` / `SharedFlow`**: 코루틴에서 상태를 관리하고 여러 소비자에게 상태 업데이트를 전달하는 데 사용되는 Flow API의 특수 유형입니다.
 
 **참고**: 코루틴을 사용하려면 `kotlinx-coroutines-core` 라이브러리 의존성을 추가해야 합니다.
 
-아래 `Coroutines.kt` 파일에서 실제 예제 코드를 확인할 수 있습니다.
+아래 `Coroutines.kt`, `ChannelsExample.kt`, `StateManagementExample.kt` 파일에서 실제 예제 코드를 확인할 수 있습니다.
