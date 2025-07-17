@@ -20,6 +20,7 @@
 - `18-android-compose`: Jetpack Compose를 사용한 Android 앱 개발 예제
 - `19-functional-programming`: Arrow 라이브러리를 활용한 함수형 프로그래밍 예제 (Either, Option)
 - `20-kotlin-dsl`: Kotlin DSL (Domain Specific Language) 예제 (HTML 빌더)
+- `21-kotlin-js`: Kotlin/JS를 이용한 웹 프론트엔드 예제
 
 각 디렉토리의 `README.md` 파일에서 개념 설명을, `.kt` 파일에서 실제 예제 코드를 확인할 수 있습니다.
 
