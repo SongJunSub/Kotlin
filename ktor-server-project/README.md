@@ -2,9 +2,9 @@
 
 이 프로젝트는 코틀린 기반의 경량 웹 프레임워크인 Ktor를 사용하여 구축한 샘플 서버 애플리케이션입니다.
 
-## H2 데이터베이스 연동 및 CRUD API
+## PostgreSQL 데이터베이스 연동 및 CRUD API
 
-이 프로젝트는 인메모리 데이터베이스인 H2를 사용하여 '작업(Task)'에 대한 CRUD(Create, Read, Update, Delete) API를 제공합니다.
+이 프로젝트는 PostgreSQL 데이터베이스를 사용하여 '작업(Task)'에 대한 CRUD(Create, Read, Update, Delete) API를 제공합니다. Docker Compose를 통해 PostgreSQL 컨테이너를 쉽게 실행할 수 있습니다.
 
 **API 엔드포인트:**
 

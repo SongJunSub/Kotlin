@@ -1,16 +1,15 @@
 version: '3.8'
 services:
   db:
-    image: mysql:8.0.33
+    image: postgres:16-alpine
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_DATABASE: your_database_name
-      MYSQL_USER: your_username
-      MYSQL_PASSWORD: your_password
+      POSTGRES_DB: your_database_name
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/data
 
   app:
     build: .
@@ -19,7 +18,7 @@ services:
     depends_on:
       - db
     environment:
-      DB_URL: jdbc:mysql://db:3306/your_database_name
+      DB_URL: jdbc:postgresql://db:5432/your_database_name
       DB_USER: your_username
       DB_PASSWORD: your_password
       JWT_SECRET: a_very_long_and_secure_secret_key_12345
