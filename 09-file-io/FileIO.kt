@@ -36,4 +36,11 @@ fun main() {
         file.delete()
         println("\n${file.name} 파일을 삭제했습니다.")
     }
+
+    // 7. 디렉토리 내 파일 목록 가져오기 및 필터링
+    val currentDir = File(".") // 현재 디렉토리
+    println("\n--- 현재 디렉토리의 .kt 파일 목록 ---")
+    currentDir.listFiles()?.filter { it.isFile && it.extension == "kt" }?.forEach { 
+        println(it.name)
+    }
 }
