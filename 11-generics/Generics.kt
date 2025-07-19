@@ -26,6 +26,18 @@ class StringProducer : Producer<String> {
     override fun produce(): String = "Hello, Generics!"
 }
 
+// 5. 반공변성 (in)
+// 쓰기만 가능한 제네릭 인터페이스
+interface Consumer<in T> {
+    fun consume(value: T)
+}
+
+class AnyConsumer : Consumer<Any> {
+    override fun consume(value: Any) {
+        println("소비: $value")
+    }
+}
+
 fun main() {
     // 제네릭 클래스 사용
     val intBox = Box(123)
@@ -49,4 +61,8 @@ fun main() {
     // 공변성 예제
     val producer: Producer<Any> = StringProducer() // Producer<String>을 Producer<Any>로 할당 가능
     println("공변성 결과: ${producer.produce()}")
+
+    // 반공변성 예제
+    val consumer: Consumer<String> = AnyConsumer() // Consumer<Any>를 Consumer<String>으로 할당 가능
+    consumer.consume("Kotlin is awesome!")
 }
