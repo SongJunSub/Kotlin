@@ -39,13 +39,28 @@ abstract class Tag(val name: String) : Element {
 class HTML : Tag("html")
 class Table : Tag("table")
 class TR : Tag("tr")
-class TD : Tag("td")
+class TD(val attributes: MutableMap<String, String> = mutableMapOf()) : Tag("td") {
+    fun attribute(key: String, String) {
+        attributes[key] = value
+    }
+
+    override fun render(builder: StringBuilder, indent: String) {
+        builder.append("$indent<$name")
+        if (attributes.isNotEmpty()) {
+            attributes.forEach { (key, value) ->
+                builder.append(" $key=\"$value\"")
+            }
+        }
+        builder.append(">$indent</$name>\n")
+    }
+}
 
 fun html(init: HTML.() -> Unit): HTML = HTML().apply(init)
 
 fun HTML.table(init: Table.() -> Unit) = initTag(Table(), init)
 fun Table.tr(init: TR.() -> Unit) = initTag(TR(), init)
 fun TR.td(init: TD.() -> Unit) = initTag(TD(), init)
+fun TR.td(attributes: Map<String, String>, init: TD.() -> Unit) = initTag(TD(attributes.toMutableMap()), init)
 fun Tag.text(content: String) = children.add(TextElement(content))
 
 // --- DSL 사용 예제 ---
@@ -63,7 +78,7 @@ fun createHtmlTable(): String {
             for ((name, age) in people) {
                 tr {
                     td { text(name) }
-                    td { text(age.toString()) }
+                    td(mapOf("class" to "data-cell")) { text(age.toString()) }
                 }
             }
         }
