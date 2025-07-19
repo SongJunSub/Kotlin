@@ -6,7 +6,7 @@
 
 - **불변 컬렉션 (Immutable Collections)**: `listOf`, `setOf`, `mapOf`를 사용하여 생성하며, 한 번 생성되면 요소를 추가, 수정, 삭제할 수 없습니다.
 - **가변 컬렉션 (Mutable Collections)**: `mutableListOf`, `mutableSetOf`, `mutableMapOf`를 사용하여 생성하며, 생성 후에도 요소를 변경할 수 있습니다.
-- **컬렉션 처리 함수**: `filter`, `map`, `forEach`, `groupBy` 등 데이터를 쉽게 가공하고 처리할 수 있는 다양한 고차 함수를 제공합니다.
+- **컬렉션 처리 함수**: `filter`, `map`, `forEach`, `groupBy`, `fold`, `reduce` 등 데이터를 쉽게 가공하고 처리할 수 있는 다양한 고차 함수를 제공합니다.
 
 ### 컬렉션 종류
 

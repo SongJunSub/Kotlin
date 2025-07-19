@@ -36,6 +36,14 @@ fun main() {
     // groupBy: 나이로 그룹화하기
     val groupedByAge = people.groupBy { it.age }
     println("나이별 그룹: $groupedByAge")
+
+    // 6. fold: 초기값부터 시작하여 누적 연산
+    val sumOfNumbers = numbers.fold(0) { accumulator, number -> accumulator + number }
+    println("fold를 이용한 합계: $sumOfNumbers")
+
+    // 7. reduce: 첫 번째 요소부터 시작하여 누적 연산
+    val productOfNumbers = numbers.reduce { accumulator, number -> accumulator * number }
+    println("reduce를 이용한 곱셈: $productOfNumbers")
 }
 
 data class Person(val name: String, val age: Int)
