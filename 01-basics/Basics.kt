@@ -56,4 +56,18 @@ fun main() {
         count--
     }
     println()
+
+    // 8. 사용자 입력 및 타입 변환
+    println("\n이름을 입력하세요:")
+    val inputName = readLine() // 사용자 입력 받기 (String? 타입)
+
+    println("나이를 입력하세요:")
+    val inputAgeString = readLine()
+    val inputAge = inputAgeString?.toIntOrNull() // String? -> Int? 로 안전하게 변환
+
+    if (inputName != null && inputAge != null) {
+        println("안녕하세요, $inputName 님! 당신은 ${inputAge}세 이군요.")
+    } else {
+        println("입력이 올바르지 않습니다.")
+    }
 }
