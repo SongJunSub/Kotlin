@@ -16,6 +16,15 @@ fun String?.getSafeLength(): Int {
     return this?.length ?: 0
 }
 
+fun String?.getSafeLength(): Int {
+    // this가 null이면 0을 반환, 아니면 길이를 반환
+    return this?.length ?: 0
+}
+
+// String 클래스에 확장 프로퍼티 추가
+val String.hasSpaces: Boolean
+    get() = contains(' ')
+
 fun main() {
     val greeting = "Hello, World"
     println(greeting.addExclamation()) // 출력: Hello, World!
@@ -28,4 +37,10 @@ fun main() {
 
     nullableString = null
     println("'$nullableString'의 길이: ${nullableString.getSafeLength()}") // 출력: 'null'의 길이: 0
+
+    val sentence = "Hello Kotlin World"
+    println("'$sentence'에 공백이 있나요? ${sentence.hasSpaces}")
+
+    val word = "Kotlin"
+    println("'$word'에 공백이 있나요? ${word.hasSpaces}")
 }
