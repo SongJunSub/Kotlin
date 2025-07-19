@@ -29,4 +29,14 @@ fun main() = runBlocking { // main 함수에서 코루틴을 시작하고 완료
     job.join()
 
     println("메인 프로그램 종료")
+
+    // 3. withContext: 디스패처 변경
+    println("\nwithContext 예제 시작")
+    val resultFromBackground = withContext(Dispatchers.Default) {
+        println("백그라운드 작업 시작 (스레드: ${Thread.currentThread().name})")
+        delay(1500L)
+        "백그라운드 작업 완료"
+    }
+    println("백그라운드 작업 결과: $resultFromBackground (스레드: ${Thread.currentThread().name})")
+    println("withContext 예제 종료")
 }
