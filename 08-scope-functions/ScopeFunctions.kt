@@ -41,4 +41,13 @@ fun main() {
     }
     // randomNumber는 also 블록의 영향을 받지 않고 원래의 난수 값을 가짐
     println("also 이후: $randomNumber")
+
+    // 6. 스코프 함수 체이닝 예제
+    val processedString = "  Kotlin is FUN  "
+        .trim() // 앞뒤 공백 제거
+        .also { println("트림 후: '$it'") } // 중간 결과 로깅
+        .uppercase() // 대문자로 변환
+        .let { "처리된 문자열: $it" } // 최종 결과 포맷팅
+
+    println(processedString)
 }
