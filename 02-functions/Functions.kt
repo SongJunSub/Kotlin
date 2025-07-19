@@ -22,6 +22,10 @@ fun main() {
     // 람다를 변수에 할당
     val square: (Int) -> Int = { it * it }
     println("람다 변수: ${square(4)}")
+
+    // 6. 확장 함수 호출
+    val originalString = "Hello"
+    println("확장 함수: ${originalString.addExclamation()}")
 }
 
 // 1. 기본 함수
@@ -42,4 +46,9 @@ fun greet(name: String, language: String = "English") {
 fun operateOnNumbers(numbers: List<Int>, operation: (Int, Int) -> Int): Int {
     // 리스트의 모든 요소를 순회하며 연산을 적용
     return numbers.reduce(operation)
+}
+
+// 6. 확장 함수
+fun String.addExclamation(): String {
+    return this + "!"
 }
