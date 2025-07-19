@@ -14,3 +14,9 @@ actual fun getPlatformName(): String {
     // iOS에서는 UIKit의 UIDevice와 같은 네이티브 프레임워크를 직접 호출할 수 있습니다.
     return UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
 }
+
+actual class PlatformLoggerImpl : PlatformLogger {
+    override fun log(message: String) {
+        println("iOS Log: $message")
+    }
+}

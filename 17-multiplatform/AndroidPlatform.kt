@@ -12,3 +12,9 @@ actual fun getPlatformName(): String {
     // 안드로이드에서는 Build.VERSION.SDK_INT와 같은 API를 사용하여 더 구체적인 정보를 제공할 수 있습니다.
     return "Android"
 }
+
+actual class PlatformLoggerImpl : PlatformLogger {
+    override fun log(message: String) {
+        println("Android Log: $message")
+    }
+}

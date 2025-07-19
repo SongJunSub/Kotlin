@@ -16,3 +16,11 @@ class Greeter {
         return "Hello, ${getPlatformName()}!"
     }
 }
+
+// 공통 데이터 클래스
+data class User(val id: String, val name: String)
+
+// 플랫폼별 구현이 필요한 인터페이스
+expect interface PlatformLogger {
+    fun log(message: String)
+}
