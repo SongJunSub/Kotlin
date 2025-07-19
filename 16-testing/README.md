@@ -17,7 +17,7 @@
 
 ### 주요 특징
 - **코틀린 친화적**: 코틀린의 `suspend` 함수, 확장 함수, `object` 등 다양한 기능을 완벽하게 지원합니다.
-- **간결한 API**: `every`, `returns`, `verify` 등 간단하고 직관적인 API로 모의 객체의 행동을 정의하고 검증할 수 있습니다.
+- **간결한 API**: `every`, `returns`, `verify`, `coEvery` 등 간단하고 직관적인 API로 모의 객체의 행동을 정의하고 검증할 수 있습니다.
 
 ## 설정 방법 (`build.gradle.kts`)
 

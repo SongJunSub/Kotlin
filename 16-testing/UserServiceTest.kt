@@ -5,13 +5,19 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import io.kotest.core.test.TestCase
+import io.kotest.core.test.TestResult
+import kotlinx.coroutines.test.runTest
 
 // --- 테스트 대상 클래스 ---
 
 // 사용자 정보를 가져오는 역할을 하는 인터페이스 (의존성)
+import kotlinx.coroutines.delay
+
 interface UserRepository {
     fun findById(id: Int): User?
     fun save(user: User)
+    suspend fun findByIdAsync(id: Int): User?
 }
 
 // 사용자 정보를 담는 데이터 클래스
@@ -32,6 +38,11 @@ class UserService(private val userRepository: UserRepository) {
             return true
         }
         return false
+    }
+
+    suspend fun getUserNameAsync(id: Int): String {
+        val user = userRepository.findByIdAsync(id)
+        return user?.name ?: "User Not Found Async"
     }
 }
 
@@ -91,6 +102,34 @@ class UserServiceTest : BehaviorSpec({
             
             Then("save 함수가 한 번 호출되어야 한다") {
                 verify(exactly = 1) { userRepository.save(user) }
+            }
+        }
+    }
+
+    Given("비동기 사용자 ID가 주어졌을 때") {
+        val userId = 3
+        val user = User(userId, "Charlie", "charlie@example.com")
+
+        When("비동기 데이터베이스에 해당 사용자가 존재하면") {
+            // suspend 함수를 모킹할 때는 coEvery를 사용
+            coEvery { userRepository.findByIdAsync(userId) } returns user
+
+            Then("비동기 사용자 이름을 반환해야 한다") {
+                runTest { // suspend 함수를 테스트할 때는 runTest 블록 안에서 실행
+                    val userName = userService.getUserNameAsync(userId)
+                    userName shouldBe "Charlie"
+                }
+            }
+        }
+
+        When("비동기 데이터베이스에 해당 사용자가 존재하지 않으면") {
+            coEvery { userRepository.findByIdAsync(userId) } returns null
+
+            Then("'User Not Found Async'를 반환해야 한다") {
+                runTest {
+                    val userName = userService.getUserNameAsync(userId)
+                    userName shouldBe "User Not Found Async"
+                }
             }
         }
     }
