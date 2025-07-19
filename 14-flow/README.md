@@ -8,6 +8,8 @@ Kotlin Flow는 코루틴을 기반으로 동작하는 비동기 데이터 스트
 - **Producer (생산자)**: `flow { ... }` 빌더 블록 내에서 `emit()` 함수를 호출하여 데이터를 생성하는 주체입니다.
 - **Intermediary (중간 연산자)**: 스트림의 데이터를 변환하거나 필터링하는 연산자입니다. (예: `map`, `filter`, `onEach`). 이 연산자들은 그 자체로 스트림을 실행시키지 않고, 새로운 스트림을 반환하는 체이닝(chaining) 구조를 가집니다.
 - **Collector (소비자)**: 스트림의 데이터를 최종적으로 소비하는 주체입니다. `collect()`와 같은 터미널(terminal) 연산자가 호출될 때 비로소 플로우가 동작하기 시작합니다. (Cold Stream의 특징)
+- **StateFlow**: `MutableStateFlow`를 통해 상태를 발행하고, `StateFlow`를 통해 상태를 관찰하는 Hot Flow입니다. 항상 최신 상태 값을 가집니다.
+- **SharedFlow**: `MutableSharedFlow`를 통해 이벤트를 발행하고, `SharedFlow`를 통해 이벤트를 관찰하는 Hot Flow입니다. 여러 소비자에게 이벤트를 공유할 수 있습니다.
 
 ## Flow의 특징
 

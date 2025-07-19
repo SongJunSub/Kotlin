@@ -45,6 +45,39 @@ fun main() = runBlocking {
     println("총 소요 시간: ${time}ms")
 
     println("\nmain 함수 종료")
+
+    // --- StateFlow 예제 ---
+    println("\n--- StateFlow 예제 ---")
+    val mutableState = MutableStateFlow(0)
+    launch {
+        mutableState.collect { value ->
+            println("StateFlow 수신: $value")
+        }
+    }
+    delay(100)
+    mutableState.value = 1
+    delay(100)
+    mutableState.value = 2
+    delay(100)
+
+    // --- SharedFlow 예제 ---
+    println("\n--- SharedFlow 예제 ---")
+    val mutableShared = MutableSharedFlow<String>()
+    launch {
+        mutableShared.collect { value ->
+            println("SharedFlow 수신자 1: $value")
+        }
+    }
+    launch {
+        mutableShared.collect { value ->
+            println("SharedFlow 수신자 2: $value")
+        }
+    }
+    delay(100)
+    mutableShared.emit("Hello")
+    delay(100)
+    mutableShared.emit("World")
+    delay(100)
 }
 
 // 시간 측정을 위한 헬퍼 함수
