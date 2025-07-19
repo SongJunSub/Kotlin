@@ -50,6 +50,21 @@ object DatabaseManager {
     }
 }
 
+// 6. 봉인된 클래스 (Sealed Class)
+sealed class Result {
+    data class Success(val data: String) : Result()
+    data class Error(val message: String) : Result()
+    object Loading : Result()
+}
+
+fun handleResult(result: Result) {
+    when (result) {
+        is Result.Success -> println("성공: ${result.data}")
+        is Result.Error -> println("에러: ${result.message}")
+        Result.Loading -> println("로딩 중...")
+    }
+}
+
 fun main() {
     // 클래스 인스턴스 생성
     val person = Person("JunSub", 30)
@@ -72,4 +87,9 @@ fun main() {
 
     // 싱글턴 객체 사용
     DatabaseManager.connect()
+
+    // 봉인된 클래스 사용
+    handleResult(Result.Loading)
+    handleResult(Result.Success("데이터 로드 완료"))
+    handleResult(Result.Error("네트워크 오류 발생"))
 }
