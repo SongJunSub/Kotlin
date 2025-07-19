@@ -29,4 +29,23 @@ fun main() {
     val someValue: Any = "123"
     val intValue: Int? = someValue as? Int
     println("안전한 캐스트 결과: $intValue") // null 출력 (String은 Int로 캐스트 불가)
+
+    // 6. let 함수를 이용한 안전한 호출
+    var message: String? = "Hello Kotlin"
+    message?.let {
+        println("let 함수 내부: $it")
+    }
+
+    message = null
+    message?.let {
+        println("이 메시지는 출력되지 않습니다.")
+    }
+
+    // 7. run 함수를 이용한 안전한 호출
+    val length = nullableName?.run {
+        // 이 블록 안에서는 'this'가 nullableName을 가리키며 non-null 타입으로 처리됨
+        println("run 함수 내부: $this")
+        length // 'this.length'와 동일
+    }
+    println("run 함수 결과 (null일 때): $length")
 }
