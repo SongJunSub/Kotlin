@@ -44,4 +44,29 @@ fun main() {
     println("현재 나이: ${user.age}")
     user.age = -5 // 이 변경은 거부됨
     println("현재 나이: ${user.age}") // 여전히 25
+
+    println("\n--- 커스텀 위임 프로퍼티 예제 ---")
+    val myConfig = MyConfig()
+    println("초기 설정값: ${myConfig.setting}")
+    myConfig.setting = "new_value"
+    println("변경된 설정값: ${myConfig.setting}")
+}
+
+// 커스텀 위임 프로퍼티 클래스
+class CustomDelegate {
+    private var storedValue: String = "default_value"
+
+    operator fun getValue(thisRef: Any?, property: kotlin.reflect.KProperty<*>): String {
+        println("'${property.name}' 프로퍼티 읽기: $storedValue")
+        return storedValue
+    }
+
+    operator fun setValue(thisRef: Any?, property: kotlin.reflect.KProperty<*>, value: String) {
+        println("'${property.name}' 프로퍼티 쓰기: '$storedValue' -> '$value'")
+        storedValue = value
+    }
+}
+
+class MyConfig {
+    var setting: String by CustomDelegate()
 }
