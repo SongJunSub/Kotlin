@@ -74,6 +74,14 @@ class H1 : TagWithText("h1")
 class P : TagWithText("p")
 class A : TagWithText("a")
 
+class Div(val className: String? = null) : TagWithText("div") {
+    init {
+        className?.let { attributes["class"] = it }
+    }
+}
+
+fun Body.div(className: String? = null, init: Div.() -> Unit) = doInit(Div(className), init)
+
 fun html(init: HTML.() -> Unit): HTML {
     val html = HTML()
     html.init()
@@ -96,6 +104,14 @@ fun main() {
             }
             a("https://kotlinlang.org") {
                 +"Kotlin Official Website"
+            }
+            div("container") {
+                h1 {
+                    +"Inside a Div"
+                }
+                p {
+                    +"This content is inside a div with class 'container'."
+                }
             }
         }
     }
