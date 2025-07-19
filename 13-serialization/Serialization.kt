@@ -5,6 +5,14 @@ import kotlinx.serialization.Transient
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.SerialDescriptor
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 // 직렬화가 가능하도록 @Serializable 어노테이션 추가
 @Serializable
@@ -22,6 +30,28 @@ data class User(
     // null 값을 가질 수 있는 옵셔널 필드
     val email: String? = null
 )
+
+@Serializable
+data class Event(
+    val name: String,
+    @Serializable(with = LocalDateSerializer::class)
+    val date: LocalDate
+)
+
+// LocalDate를 위한 커스텀 직렬화/역직렬화
+object LocalDateSerializer : KSerializer<LocalDate> {
+    private val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalDate", PrimitiveKind.STRING)
+
+    override fun deserialize(decoder: Decoder): LocalDate {
+        return LocalDate.parse(decoder.decodeString(), formatter)
+    }
+
+    override fun serialize(encoder: Encoder, value: LocalDate) {
+        encoder.encodeString(value.format(formatter))
+    }
+}
 
 fun main() {
     val user = User(1, "SongJunSub", email = "junsub@example.com")
@@ -43,4 +73,12 @@ fun main() {
     val prettyJson = Json { prettyPrint = true }
     val prettyJsonString = prettyJson.encodeToString(user)
     println("\n예쁘게 출력된 JSON:\n$prettyJsonString")
+
+    // 3. 커스텀 직렬화/역직렬화 예제 (LocalDate)
+    val event = Event("Kotlin Meetup", LocalDate.of(2024, 7, 19))
+    val eventJson = Json.encodeToString(event)
+    println("\n직렬화된 Event: $eventJson")
+
+    val decodedEvent = Json.decodeFromString<Event>(eventJson)
+    println("역직렬화된 Event: $decodedEvent")
 }
